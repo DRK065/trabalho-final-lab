@@ -168,6 +168,36 @@ void listar_vendas() {
         printf("Total da venda: R$ %.2f\n", v.total);
     }
 }
+void excluir_cliente() {
+    if (total_clientes == 0) {
+        printf("Nenhum cliente cadastrado para excluir.\n");
+        return;
+    }
+
+    int id;
+    printf("Digite o ID do cliente que deseja excluir: ");
+    scanf("%d", &id);
+
+    int indice = -1;
+    for (int i = 0; i < total_clientes; i++) {
+        if (clientes[i].id == id) {
+            indice = i;
+            break;
+        }
+    }
+
+    if (indice == -1) {
+        printf("Cliente com ID %d não encontrado.\n", id);
+        return;
+    }
+
+    for (int i = indice; i < total_clientes - 1; i++) {
+        clientes[i] = clientes[i + 1];
+    }
+
+    total_clientes--;
+    printf("Cliente com ID %d excluído com sucesso.\n", id);
+}
 
 int main() {
     int opcao = -1;
@@ -180,6 +210,7 @@ int main() {
         printf("4. Listar Clientes\n");
         printf("5. Listar Produtos\n");
         printf("6. Listar Vendas\n");
+        printf("7. excluir clinte\n");
         printf("0. Sair\n");
         printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
@@ -191,6 +222,7 @@ int main() {
             case 4: listar_clientes(); break;
             case 5: listar_produtos(); break;
             case 6: listar_vendas(); break;
+            case 7: excluir_cliente(); break;
             case 0: printf("Saindo...\n"); break;
             default: printf("Opcao invalida.\n");
         }
